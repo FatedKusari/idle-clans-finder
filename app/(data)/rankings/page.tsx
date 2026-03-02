@@ -208,6 +208,8 @@ export default function RankingsPage() {
           entries={leaderboardEntries}
           isLoading={loading}
           entityType={entityType}
+          category={category}
+          stat={selectedStat}
         />
 
         {leaderboardEntries.length > 0 && hasMore && entityType !== 'clan' && (

@@ -9,6 +9,7 @@ interface LeaderboardApiEntry {
     name?: string;
     level?: number;
     score?: number;
+    expCapDate?: number;
 }
 
 export const fetchPlayerProfile = async (username: string): Promise<Player> => {
@@ -91,15 +92,22 @@ export const fetchLeaderboard = async (
     category: LeaderboardCategory,
     stat: LeaderboardStat,
     startCount: number = 1,
-    maxCount: number = 100
+    pageSize: number = 100
 ): Promise<LeaderboardData> => {
     try {
-        const leaderboardName = entityType === 'pet' ? `pets:${gameMode}` : `${entityType}s:${gameMode}`;
+        const apiGameMode = gameMode.replace(/_/g, '');
+        const leaderboardName = entityType === 'pet' ? `pets:${apiGameMode}` : `${entityType}s:${apiGameMode}`;
+        const endCount = startCount + pageSize - 1;
         const response = await axios.get(
-            `${API_BASE_URL}/Leaderboard/top/${leaderboardName}/${stat}`,
+            '/api/leaderboard',
             {
                 timeout: DEFAULT_TIMEOUT,
-                params: { startCount, maxCount }
+                params: {
+                    leaderboardName,
+                    name: stat,
+                    startCount,
+                    maxCount: endCount,
+                }
             }
         );
 
@@ -110,7 +118,10 @@ export const fetchLeaderboard = async (
             entries = response.data.map((entry: LeaderboardApiEntry, index: number) => ({
                 rank: startCount + index,
                 name: entry.username || entry.name || `Player ${startCount + index}`,
-                value: isTotalLevel ? (entry.level || 0) : (entry.score || 0)
+                value: isTotalLevel ? (entry.level || 0) : (entry.score || 0),
+                level: entry.level || 0,
+                exp: entry.score || 0,
+                expCapDate: entry.expCapDate ?? null,
             }));
         }
 

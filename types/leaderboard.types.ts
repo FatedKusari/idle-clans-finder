@@ -18,6 +18,9 @@ export interface LeaderboardEntry {
   rank: number;
   name: string;
   value: number;
+  level: number;
+  exp: number;
+  expCapDate: number | null;
 }
 
 export interface LeaderboardData {

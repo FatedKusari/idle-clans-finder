@@ -52,7 +52,7 @@ export function useLeaderboardQuery(
                 : undefined;
         },
         enabled: stat !== null,
-        staleTime: 30 * 60 * 1000,
+        staleTime: 60 * 60 * 1000,
     });
 
     const entries = useMemo<LeaderboardEntry[]>(
