@@ -1,6 +1,6 @@
 {
   "name": "idleclanshub",
-  "version": "1.2.0",
+  "version": "1.3.0",
   "description": "Idle Clans Hub - Your ultimate Idle Clans companion is here. Unlock the full potential of your game in one powerful, unified platform.",
   "author": "Karol \"HSKdev\" Has",
   "license": "MIT",
@@ -13,9 +13,10 @@
     "idleclans",
     "idleclanshub",
     "idleclansfinder",
-    "idleclansfinderhub",
+    "idleclansguide",
     "idleclansstats",
     "idleclansstatshub",
+    "idleclanshubguide",
     "idleclansstatsfinder",
     "idleclansstatsfinderhub"
   ],

@@ -190,6 +190,17 @@ export default function CalculatorPage() {
           </div>
         )}
 
+        {/* About section */}
+        <div className="rounded-2xl border border-white/10 bg-gradient-to-br from-[#001a1a] to-[#001212] p-6 mb-8">
+          <h2 className="text-base font-semibold text-emerald-400 mb-2">About the XP Calculator</h2>
+          <p className="text-gray-400 text-sm leading-relaxed">
+            The XP Calculator helps you plan your skill progression in Idle Clans. Enter your username to load your current skill levels from the game, then select any skill to see exactly how many actions and resources you need to reach your target level. Calculations account for your current XP so results are always accurate to where you are right now. For tips on using this tool effectively, read our{' '}
+            <a href="/guides/how-to-use-xp-calculator" className="text-emerald-400 hover:text-emerald-300 underline underline-offset-2">
+              XP Calculator guide
+            </a>.
+          </p>
+        </div>
+
         {playerData ? (
           <div className="bg-white/5 border border-white/10 p-6 md:p-8 rounded-2xl shadow-2xl backdrop-blur-xl">
             <div className="flex flex-col sm:flex-row items-start justify-between mb-8 gap-4 border-b border-white/5 pb-6">

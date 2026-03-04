@@ -11,6 +11,7 @@ import {
   FaStore,
   FaListAlt,
   FaHome,
+  FaBook,
 } from "react-icons/fa";
 import { RxHamburgerMenu, RxCross2 } from "react-icons/rx";
 
@@ -56,6 +57,11 @@ export default function Navbar() {
       href: "/logs",
       icon: <FaListAlt className="mr-1.5" />,
       text: "Logs",
+    },
+    {
+      href: "/guides",
+      icon: <FaBook className="mr-1.5" />,
+      text: "Guides",
     },
     // {
     //   href: "/next-skill",

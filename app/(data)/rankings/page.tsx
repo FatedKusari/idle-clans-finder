@@ -87,6 +87,17 @@ export default function RankingsPage() {
           Leaderboards
         </h1>
 
+        {/* About section */}
+        <div className="rounded-2xl border border-white/10 bg-gradient-to-br from-[#001a1a] to-[#001212] p-5 mb-6">
+          <h2 className="text-base font-semibold text-emerald-400 mb-2">About Rankings</h2>
+          <p className="text-gray-400 text-sm leading-relaxed">
+            The Rankings page displays global leaderboards for players, clans, and pets across all skills, bosses, and raids in Idle Clans. Filter by entity type, game mode (Default, Ironman, or Group Ironman), and category to compare your progress against the best players worldwide. Data is sourced live from the Idle Clans API and cached locally for performance. For tips on reading the leaderboards, see our{' '}
+            <a href="/guides/how-to-use-rankings" className="text-emerald-400 hover:text-emerald-300 underline underline-offset-2">
+              Rankings guide
+            </a>.
+          </p>
+        </div>
+
         <div className="bg-[#002020] p-6 rounded-lg shadow-lg mb-6">
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
             <div className="space-y-3">

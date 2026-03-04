@@ -20,3 +20,59 @@
 .custom-scrollbar::-webkit-scrollbar-thumb:hover {
     background: #10b981;
 }
+
+/* Guide article content styles */
+.guide-content h2 {
+    font-size: 1.25rem;
+    font-weight: 700;
+    color: #34d399;
+    margin-top: 2rem;
+    margin-bottom: 0.625rem;
+    padding-bottom: 0.5rem;
+    border-bottom: 1px solid rgba(255,255,255,0.06);
+}
+
+.guide-content h3 {
+    font-size: 1rem;
+    font-weight: 600;
+    color: #6ee7b7;
+    margin-top: 1.5rem;
+    margin-bottom: 0.4rem;
+}
+
+.guide-content p {
+    color: #9ca3af;
+    font-size: 0.9375rem;
+    line-height: 1.75;
+    margin-bottom: 0.875rem;
+}
+
+.guide-content ul,
+.guide-content ol {
+    color: #9ca3af;
+    font-size: 0.9375rem;
+    line-height: 1.75;
+    margin-bottom: 0.875rem;
+    padding-left: 1.5rem;
+}
+
+.guide-content ul {
+    list-style-type: disc;
+}
+
+.guide-content ol {
+    list-style-type: decimal;
+}
+
+.guide-content li {
+    margin-bottom: 0.3rem;
+}
+
+.guide-content strong {
+    color: #e5e7eb;
+    font-weight: 600;
+}
+
+.guide-content h2:first-child {
+    margin-top: 0;
+}

@@ -11,6 +11,7 @@ import {
   FaUsers,
   FaTrophy,
   FaGlobe,
+  FaBook,
 } from "react-icons/fa";
 import { SiBuymeacoffee } from "react-icons/si";
 import DashboardCard, {
@@ -99,6 +100,14 @@ export default function Home() {
         "View detailed logs of your drops, kills, and other in-game activities.",
       icon: <FaListAlt className="w-6 h-6" />,
       href: "/logs",
+      color: "emerald",
+    },
+    {
+      title: "Guides",
+      description:
+        "In-depth skill guides, boss strategies, and beginner tutorials to help you master every aspect of Idle Clans.",
+      icon: <FaBook className="w-6 h-6" />,
+      href: "/guides",
       color: "emerald",
     },
     // {
