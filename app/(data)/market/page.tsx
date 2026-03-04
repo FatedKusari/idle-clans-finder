@@ -5,6 +5,7 @@ import { FaStore, FaSync, FaTags, FaChartLine } from "react-icons/fa";
 import { useMarketPricesQuery } from "@/hooks/queries/useMarketPricesQuery";
 import ProfitableItemsTable from "@/components/market/ProfitableItemsTable";
 import UnderpricedItemsTable from "@/components/market/UnderpricedItemsTable";
+import Link from "next/link";
 
 export default function MarketPage() {
   // Modifiers: Clan +10% ON by default, Potion +5% OFF by default
@@ -128,6 +129,29 @@ export default function MarketPage() {
             {error}
           </div>
         )}
+
+        {/* About section */}
+        <div className="rounded-2xl border border-white/10 bg-gradient-to-br from-[#001a1a] to-[#001212] p-6 mb-8">
+          <h2 className="text-base font-semibold text-emerald-400 mb-2">
+            About Market Analytics
+          </h2>
+          <p className="text-gray-400 text-sm leading-relaxed">
+            Market Analytics pulls real-time price data from the Idle Clans
+            market API and surfaces two key opportunities: items that are
+            currently profitable to produce and sell, and items listed below
+            their typical market value. The profit calculation uses the 24-hour
+            daily average as a baseline and accounts for your clan&apos;s market
+            bonus and any active potions. Use the toggles above to match your
+            in-game setup. For a full walkthrough of this tool, read our{" "}
+            <Link
+              href="/guides/how-to-use-market-analytics"
+              className="text-emerald-400 hover:text-emerald-300 underline underline-offset-2"
+            >
+              Market Analytics guide
+            </Link>
+            .
+          </p>
+        </div>
 
         <div className="flex flex-col gap-8">
           <div className="space-y-4">

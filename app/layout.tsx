@@ -1,11 +1,11 @@
 import type { Metadata } from "next";
 import { Roboto } from "next/font/google";
-import Script from "next/script";
 import "./globals.css";
 import "./modal-styles.css";
 import "react-tooltip/dist/react-tooltip.css";
 import Navbar from "@/components/layout/Navbar";
 import Footer from "@/components/layout/Footer";
+import CookieBanner from "@/components/layout/CookieBanner";
 import { Providers } from "./providers";
 
 const roboto = Roboto({
@@ -16,24 +16,24 @@ const roboto = Roboto({
 });
 
 export const metadata: Metadata = {
-  title: "Idle Clans Hub | Player Search & Stats",
+  title: "Idle Clans Hub | Player Search, Stats & Guides",
   description:
-    "Search and view detailed player statistics, skills, and local market upgrades for Idle Clans. Find player profiles, skill levels, and game progression easily.",
+    "Your go-to resource for Idle Clans - search player statistics, track skill levels, browse market upgrades, and read comprehensive guides written by experienced players.",
   keywords:
-    "Idle Clans, player finder, game stats, skills tracker, local market upgrades, MMORPG stats",
+    "Idle Clans, player finder, game stats, skills tracker, local market upgrades, MMORPG stats, Idle Clans guides, skill guides, beginner tutorials, boss strategies, clan management",
   authors: [{ name: "Idle Clans Hub" }],
   openGraph: {
-    title: "Idle Clans Hub | Player Search & Stats",
+    title: "Idle Clans Hub | Player Search, Stats & Guides",
     description:
-      "Search and view detailed player statistics, skills, and local market upgrades for Idle Clans",
+      "Search player statistics, track skill levels, browse market upgrades and read comprehensive Idle Clans guides",
     type: "website",
     siteName: "Idle Clans Hub",
   },
   twitter: {
     card: "summary_large_image",
-    title: "Idle Clans Hub | Player Search & Stats",
+    title: "Idle Clans Hub | Player Search, Stats & Guides",
     description:
-      "Search and view detailed player statistics, skills, and local market upgrades for Idle Clans",
+      "Search player statistics, track skill levels, browse market upgrades and read comprehensive Idle Clans guides",
   },
   robots: "index, follow",
 };
@@ -50,23 +50,6 @@ export default function RootLayout({
           href="https://fonts.googleapis.com/css?family=Cookie&display=swap"
           rel="stylesheet"
         />
-        <script
-          async
-          src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6722789074992707"
-          crossOrigin="anonymous"
-        ></script>
-        <Script
-          strategy="afterInteractive"
-          src="https://www.googletagmanager.com/gtag/js?id=G-SHBQEPTLNT"
-        />
-        <Script id="google-analytics" strategy="afterInteractive">
-          {`
-            window.dataLayer = window.dataLayer || [];
-            function gtag(){dataLayer.push(arguments);}
-            gtag('js', new Date());
-            gtag('config', 'G-SHBQEPTLNT');
-          `}
-        </Script>
       </head>
       <body
         className={`${roboto.variable} font-sans bg-[#031111] min-h-screen text-white flex flex-col`}
@@ -76,6 +59,7 @@ export default function RootLayout({
           <div className="flex-1">{children}</div>
           <Footer />
         </Providers>
+        <CookieBanner />
       </body>
     </html>
   );
