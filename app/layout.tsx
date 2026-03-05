@@ -46,6 +46,10 @@ export default function RootLayout({
   return (
     <html lang="en" suppressHydrationWarning={true}>
       <head>
+        <meta
+          name="google-adsense-account"
+          content="ca-pub-6722789074992707"
+        />
         <link
           href="https://fonts.googleapis.com/css?family=Cookie&display=swap"
           rel="stylesheet"
