@@ -919,7 +919,7 @@ const items: { [key: number]: string } = {
     947: 'Lil\' archaeologist',
     965: 'Exterminator\'s Parrying Dagger',
     966: 'Bone Spear',
-    966: 'The Turkey Tenderizer',
+    967: 'The Turkey Tenderizer',
     974: 'Citadel Helmet',
     975: 'Citadel Platelegs',
     976: 'Citadel Platebody',
