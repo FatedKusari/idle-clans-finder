@@ -73,6 +73,7 @@ export function getDisplayItemName(
       smithing: "Lil' Smither",
       woodcutting: "Lil' Chopper",
       bloodmoon: "Lil' eclipse",
+      invocation: "Lil' archaeologist",
     };
 
     // Combat pet mappings
