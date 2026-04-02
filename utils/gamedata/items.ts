@@ -942,6 +942,7 @@ const items: { [key: number]: string } = {
     994: 'Otherworldly Leather Trousers',
     995: 'Otherworldly Leather Coat',
     997: 'Invocation Gloves',
+    998: 'Obsidian Arrow',
     '-1': 'None Equipped',
 };
 
