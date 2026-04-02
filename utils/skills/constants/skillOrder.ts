@@ -19,4 +19,5 @@ export const SKILL_ORDER = [
   "enchanting",
   "brewing",
   "exterminating",
+  "invocation",
 ];
