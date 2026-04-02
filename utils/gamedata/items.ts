@@ -918,7 +918,6 @@ const items: { [key: number]: string } = {
     933: 'Exterminating Cape Tier 4',
     947: 'Pet Invocation',
     948: 'Normal Brush',
-    948: 'Refined Brush',
     949: 'Refined Brush',
     950: 'Great Brush',
     951: 'Elite Brush',
