@@ -926,9 +926,14 @@ const items: { [key: number]: string } = {
     986: 'Pharaoh\'s Boots',
     987: 'Demonhide Boots',
     988: 'Silhenik\'s Lunar Belt',
-    989: 'Primordial Hide Hat',
+    989: 'Primordial Hide Hat',	
+    990: 'Invocation Cape Tier 1',
+    991: 'Invocation Cape Tier 2',
+    992: 'Invocation Cape Tier 3',
+    993: 'Invocation Cape Tier 4',
     994: 'Otherworldly Leather Trousers',
     995: 'Otherworldly Leather Coat',
+    997: 'Invocation Gloves',
     '-1': 'None Equipped',
 };
 
