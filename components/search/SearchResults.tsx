@@ -249,7 +249,7 @@ export default function SearchResults({
                   (sum, exp) => sum + getLevel(exp),
                   0,
                 )}
-                /2400
+                /2520
               </span>
             </p>
             <p className="flex items-center mb-3 font-light text-gray-300">
