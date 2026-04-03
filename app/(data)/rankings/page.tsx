@@ -28,6 +28,7 @@ const PLAYER_SKILLS: { value: SkillStat; label: string }[] = [
   { value: 'enchanting', label: 'Enchanting' },
   { value: 'brewing', label: 'Brewing' },
   { value: 'exterminating', label: 'Exterminating' },
+  { value: 'invocation', label: 'Invocation' },
 ];
 
 const PET_SKILLS: { value: SkillStat; label: string }[] = [
@@ -46,6 +47,7 @@ const PET_SKILLS: { value: SkillStat; label: string }[] = [
   { value: 'enchanting', label: 'Enchanting' },
   { value: 'brewing', label: 'Brewing' },
   { value: 'exterminating', label: 'Exterminating' },
+  { value: 'invocation', label: 'Invocation' },
 ];
 
 const BOSSES: { value: BossStat; label: string }[] = [
