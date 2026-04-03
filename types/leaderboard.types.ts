@@ -54,6 +54,7 @@ export type SkillStat =
   | 'enchanting'
   | 'brewing'
   | 'exterminating';
+  | 'invocation';
 
 export type BossStat =
   | 'zeus'
