@@ -29,6 +29,7 @@ export default function SkillDisplay({ skills }: SkillDisplayProps) {
             xp={xp}
             level={level}
             color={color}
+            rank={ranks[skillName]}
           />
         )
       )}
