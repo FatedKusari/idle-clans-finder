@@ -57,7 +57,8 @@ export const fetchLeaderboardProfile = async (
     gameMode: GameMode
 ): Promise<LeaderboardProfile | null> => {
     try {
-        const leaderboardName = `players:${gameMode}`;
+        const apiGameMode = gameMode.replace(/_/g, '');
+        const leaderboardName = `players:${apiGameMode}`;
         const response = await axios.get(
             `${API_BASE_URL}/Leaderboard/profile/${encodeURIComponent(leaderboardName)}/${encodeURIComponent(username)}`,
             { timeout: DEFAULT_TIMEOUT }
