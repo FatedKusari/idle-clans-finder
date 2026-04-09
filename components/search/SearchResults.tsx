@@ -146,11 +146,10 @@ export default function SearchResults({
       if (!player?.username || !player?.gameMode) return;
 
       const validGameMode: GameMode =
-        player.gameMode === "ironman"
-          ? "ironman"
-          : player.gameMode === "group_ironman"
-          ? "group_ironman"
-          : "default";
+        player.gameMode === "ironman" ? "ironman"
+        : player.gameMode === "groupironman" ? "groupironman"
+        : player.gameMode === "group_ironman" ? "groupironman"
+        : "default";
 
       const cached = getCachedLeaderboard(player.username, validGameMode);
       if (cached) {
