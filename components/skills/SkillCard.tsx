@@ -49,6 +49,7 @@ interface SkillCardProps {
     level: number;
     color: string;
     performanceMode?: boolean; // Optional prop to force performance mode
+    rank?: number;
 }
 
 interface Star {
@@ -69,6 +70,7 @@ export const SkillCard = React.memo(function SkillCard({
     level,
     color,
     performanceMode,
+    rank,
 }: SkillCardProps) {
     // =======================================
     // State & Refs
@@ -214,7 +216,12 @@ export const SkillCard = React.memo(function SkillCard({
                       }
                     : {}),
             }}
-        >            {/* Background styles based on device capability */}
+        >            {rank !== undefined && (
+                <div className="absolute top-2 right-2 z-20 text-[10px] text-gray-300 bg-black/40 px-2 py-[2px] rounded">
+                    #{rank.toLocaleString()}
+                </div>
+            )}
+            {/* Background styles based on device capability */}
             {isMaxLevel && (
                 <>
                     {/* High-end devices get the fancy starry background */}
