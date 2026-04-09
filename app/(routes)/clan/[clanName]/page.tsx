@@ -12,6 +12,7 @@ import { useSearchStore } from "@/lib/store/searchStore";
 import UnifiedSearch from "@/components/search/UnifiedSearch";
 import { useClanQuery } from "@/hooks/queries/useClanQuery";
 import { useRecentSearches } from "@/hooks/useRecentSearches";
+import { fetchClanLeaderboardProfile } from "@/lib/api/apiService";
 
 export default function ClanPage() {
   const { clanName } = useParams<{ clanName: string }>();
@@ -37,26 +38,14 @@ export default function ClanPage() {
     if (!decodedClanName) return;
 
     const fetchRanks = async () => {
-      const gameModes = ["default", "ironman", "groupironman"];
-      for (const mode of gameModes) {
-        try {
-          const res = await fetch(
-            `https://query.idleclans.com/api/Leaderboard/profile/clans:${mode}/${encodeURIComponent(decodedClanName)}`
-          );
-          if (!res.ok) continue;
-          const data = await res.json();
-          if (!data?.fields) continue;
+      const profile = await fetchClanLeaderboardProfile(decodedClanName);
+      if (!profile?.fields) return;
 
-          const ranks: Record<string, number> = {};
-          Object.entries(data.fields).forEach(([key, value]: any) => {
-            ranks[key.toLowerCase()] = value.rank;
-          });
-          setSkillRanks(ranks);
-          return;
-        } catch (err) {
-          console.error(`Failed to fetch clan ranks for mode ${mode}`, err);
-        }
-      }
+      const ranks: Record<string, number> = {};
+      Object.entries(profile.fields).forEach(([key, value]: any) => {
+        ranks[key.toLowerCase()] = value.rank;
+      });
+      setSkillRanks(ranks);
     };
 
     fetchRanks();
