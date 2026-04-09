@@ -146,7 +146,11 @@ export default function SearchResults({
       if (!player?.username || !player?.gameMode) return;
 
       const validGameMode =
-        player.gameMode === "ironman" ? "ironman" : "default";
+        player.gameMode === "ironman"
+          ? "ironman"
+          : player.gameMode === "group_ironman"
+          ? "groupironman"
+          : "default";
 
       const cached = getCachedLeaderboard(player.username, validGameMode);
       if (cached) {
@@ -182,6 +186,13 @@ export default function SearchResults({
   }
 
   if (!player) return null;
+
+  const skillRanks: Record<string, number> = {};
+  if (leaderboardProfile?.fields) {
+    Object.entries(leaderboardProfile.fields).forEach(([key, value]) => {
+      skillRanks[key.toLowerCase()] = value.rank;
+    });
+  }
 
   const tag = PLAYER_TAGS[player.username] ?? null;
 
@@ -348,7 +359,7 @@ export default function SearchResults({
               ).toLocaleString()}
             </span>
           </p>
-          <SkillDisplay skills={player.skillExperiences} />
+          <SkillDisplay skills={player.skillExperiences} ranks={skillRanks} />
         </div>
 
         <div className="bg-white/5 p-6 rounded-2xl border-2 border-white/10 backdrop-blur-md shadow-xl hover:border-teal-500/50 hover:shadow-teal-900/20 transition-all duration-300 group">
