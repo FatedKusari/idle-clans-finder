@@ -15,7 +15,7 @@ import LeaderboardDisplay from "@/components/leaderboard/LeaderboardDisplay";
 
 import { Player } from "@/types/player.types";
 import { ClanData } from "@/types/clan.types";
-import { LeaderboardProfile } from "@/types/leaderboard.types";
+import { LeaderboardProfile, GameMode } from "@/types/leaderboard.types";
 
 import {
   FaGamepad,
