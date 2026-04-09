@@ -84,9 +84,10 @@ export const fetchClanLeaderboardProfile = async (
                 `${API_BASE_URL}/Leaderboard/profile/${encodeURIComponent(`clans:${mode}`)}/${encodeURIComponent(clanName)}`,
                 { timeout: DEFAULT_TIMEOUT }
             );
-            if (response.data?.fields) return response.data;
+            const fields = response.data?.fields;
+            if (fields && Object.keys(fields).length > 0) return response.data;
         } catch (error) {
-            if (axios.isAxiosError(error) && error.response?.status === 404) continue;
+            if (axios.isAxiosError(error)) continue;
         }
     }
     return null;
