@@ -74,6 +74,24 @@ export const fetchLeaderboardProfile = async (
     }
 };
 
+export const fetchClanLeaderboardProfile = async (
+    clanName: string
+): Promise<LeaderboardProfile | null> => {
+    const gameModes = ['default', 'ironman', 'groupironman'];
+    for (const mode of gameModes) {
+        try {
+            const response = await axios.get(
+                `${API_BASE_URL}/Leaderboard/profile/${encodeURIComponent(`clans:${mode}`)}/${encodeURIComponent(clanName)}`,
+                { timeout: DEFAULT_TIMEOUT }
+            );
+            if (response.data?.fields) return response.data;
+        } catch (error) {
+            if (axios.isAxiosError(error) && error.response?.status === 404) continue;
+        }
+    }
+    return null;
+};
+
 export const fetchServerInfo = async (): Promise<number> => {
     try {
         const response = await axios.get(
