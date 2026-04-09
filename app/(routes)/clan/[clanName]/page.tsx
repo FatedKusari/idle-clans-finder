@@ -31,6 +31,37 @@ export default function ClanPage() {
   const decodedClanName = decodeURIComponent(clanName);
   const { data: clanData, isLoading, error } = useClanQuery(decodedClanName);
 
+  const [skillRanks, setSkillRanks] = useState<Record<string, number>>({});
+
+  useEffect(() => {
+    if (!decodedClanName) return;
+
+    const fetchRanks = async () => {
+      const gameModes = ["default", "ironman", "groupironman"];
+      for (const mode of gameModes) {
+        try {
+          const res = await fetch(
+            `https://query.idleclans.com/api/Leaderboard/profile/clans:${mode}/${encodeURIComponent(decodedClanName)}`
+          );
+          if (!res.ok) continue;
+          const data = await res.json();
+          if (!data?.fields) continue;
+
+          const ranks: Record<string, number> = {};
+          Object.entries(data.fields).forEach(([key, value]: any) => {
+            ranks[key.toLowerCase()] = value.rank;
+          });
+          setSkillRanks(ranks);
+          return;
+        } catch (err) {
+          console.error(`Failed to fetch clan ranks for mode ${mode}`, err);
+        }
+      }
+    };
+
+    fetchRanks();
+  }, [decodedClanName]);
+
   useEffect(() => {
     if (decodedClanName) setClanSearchQuery(decodedClanName);
   }, [clanName]);
@@ -136,7 +167,7 @@ export default function ClanPage() {
                   />
                 )}
 
-                {clanData.skills && <ClanSkills skills={clanData.skills} />}
+                {clanData.skills && <ClanSkills skills={clanData.skills} ranks={skillRanks} />}
               </div>
             )}
           </>
