@@ -96,6 +96,13 @@ export function WikiModal({ isOpen, onClose, itemName }: WikiModalProps) {
         font-size: 0.875rem;
       }
       
+      /* Main item image - make the <a class="image"> wrapper block so margin:auto works */
+      .wiki-content table:first-of-type th a.image,
+      .wiki-content table:first-of-type th p a.image {
+        display: block;
+        text-align: center;
+      }
+
       /* Main item image styling */
       .wiki-content table:first-of-type th p img,
       .wiki-content table:first-of-type th .image img {
