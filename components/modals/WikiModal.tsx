@@ -56,6 +56,11 @@ export function WikiModal({ isOpen, onClose, itemName }: WikiModalProps) {
         font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
       }
       
+      /* Hide the stray item title paragraph rendered above the stats table */
+      .wiki-content > p:first-of-type {
+        display: none;
+      }
+
       /* Base table styles */
       .wiki-content table {
         width: 100%;
@@ -297,7 +302,7 @@ export function WikiModal({ isOpen, onClose, itemName }: WikiModalProps) {
 
             <div className="mt-8 mb-6 text-center">
               <a
-                href="https://wiki.idleclans.com/index.php/Main_Page"
+                href={`https://www.wiki.idleclans.com/index.php/${encodeURIComponent(content.wikiPageName)}`}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-blue-500/10 text-blue-400 text-xs font-semibold hover:bg-blue-500/20 transition-colors border border-blue-500/20"
