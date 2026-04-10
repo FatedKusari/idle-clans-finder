@@ -111,7 +111,16 @@ export function useWikiContent(itemName: string) {
           .replace(/\/index.php\/File:([^"]+)\.png/g, (match, filename) => {
             const localFilename = filename.toLowerCase().replace(/\s+/g, "_");
             return `/gameimages/${localFilename}.png`;
-          });
+          })
+          // Wrap the main item image (first <img> inside the first <th>) in a centring div.
+          // DOMPurify strips all <div> tags, so any float/alignment wrappers the wiki uses
+          // are removed — leaving the <img> as a bare inline element that sits left.
+          // We re-wrap it here after sanitisation so CSS can centre it reliably.
+          .replace(
+            /(<th[^>]*>)([\s\S]*?<img[^>]*gameimages[^>]*>)([\s\S]*?<\/th>)/,
+            (_match, open, inner, close) =>
+              `${open}<div style="display:flex;justify-content:center;align-items:center;padding:0.5rem 0;">${inner}</div>${close}`
+          );
 
         setContent({
           html: processedHtml,
