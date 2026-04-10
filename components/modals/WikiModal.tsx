@@ -56,8 +56,8 @@ export function WikiModal({ isOpen, onClose, itemName }: WikiModalProps) {
         font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
       }
       
-      /* Hide the stray item title paragraph rendered above the stats table */
-      .wiki-content > p:first-of-type {
+      /* Hide the stray item title paragraph (text-only, no img) above the stats table */
+      .wiki-content > p:first-of-type:not(:has(img)) {
         display: none;
       }
 
@@ -115,7 +115,18 @@ export function WikiModal({ isOpen, onClose, itemName }: WikiModalProps) {
         filter: drop-shadow(0 0 10px rgba(0,0,0,0.5));
       }
 
-      /* Inline images styling */
+      /* Main item image when it lives outside the table (e.g. ammo pages) */
+      .wiki-content > p img,
+      .wiki-content > p a.image img {
+        width: 128px !important;
+        height: 128px !important;
+        object-fit: contain;
+        display: block;
+        margin: 0 auto;
+        filter: drop-shadow(0 0 10px rgba(0,0,0,0.5));
+      }
+
+      /* Inline images styling (small icons inside paragraphs that are NOT the hero image) */
       .wiki-content p:not(.wiki-content table:first-of-type th p) img {
         max-width: 20px;
         height: auto;
