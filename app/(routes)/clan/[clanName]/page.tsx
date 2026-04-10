@@ -12,6 +12,7 @@ import { useSearchStore } from "@/lib/store/searchStore";
 import UnifiedSearch from "@/components/search/UnifiedSearch";
 import { useClanQuery } from "@/hooks/queries/useClanQuery";
 import { useRecentSearches } from "@/hooks/useRecentSearches";
+import { fetchClanLeaderboardProfile } from "@/lib/api/apiService";
 
 export default function ClanPage() {
   const { clanName } = useParams<{ clanName: string }>();
@@ -30,6 +31,25 @@ export default function ClanPage() {
 
   const decodedClanName = decodeURIComponent(clanName);
   const { data: clanData, isLoading, error } = useClanQuery(decodedClanName);
+
+  const [skillRanks, setSkillRanks] = useState<Record<string, number>>({});
+
+  useEffect(() => {
+    if (!decodedClanName) return;
+
+    const fetchRanks = async () => {
+      const profile = await fetchClanLeaderboardProfile(decodedClanName);
+      if (!profile?.fields) return;
+
+      const ranks: Record<string, number> = {};
+      Object.entries(profile.fields).forEach(([key, value]: any) => {
+        ranks[key.toLowerCase()] = value.rank;
+      });
+      setSkillRanks(ranks);
+    };
+
+    fetchRanks();
+  }, [decodedClanName]);
 
   useEffect(() => {
     if (decodedClanName) setClanSearchQuery(decodedClanName);
@@ -136,7 +156,7 @@ export default function ClanPage() {
                   />
                 )}
 
-                {clanData.skills && <ClanSkills skills={clanData.skills} />}
+                {clanData.skills && <ClanSkills skills={clanData.skills} ranks={skillRanks} />}
               </div>
             )}
           </>

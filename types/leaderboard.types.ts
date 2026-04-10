@@ -28,7 +28,7 @@ export interface LeaderboardData {
   totalCount: number;
 }
 
-export type GameMode = 'default' | 'ironman' | 'group_ironman';
+export type GameMode = 'default' | 'ironman' | 'group_ironman' | 'groupironman';
 export type EntityType = 'player' | 'clan' | 'pet';
 export type LeaderboardCategory = 'skills' | 'bosses' | 'raids';
 

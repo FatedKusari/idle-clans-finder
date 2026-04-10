@@ -5,8 +5,9 @@ import { formatSkills } from "@/utils/skills/formatters/skillFormatter";
 
 interface SkillDisplayProps {
   skills: Record<string, number>;
+  ranks?: Record<string, number>;
 }
-export default function SkillDisplay({ skills }: SkillDisplayProps) {
+export default function SkillDisplay({ skills, ranks = {} }: SkillDisplayProps) {
   const formattedSkills = formatSkills(skills);
 
   return (
@@ -29,6 +30,7 @@ export default function SkillDisplay({ skills }: SkillDisplayProps) {
             xp={xp}
             level={level}
             color={color}
+            rank={ranks[skillName]}
           />
         )
       )}

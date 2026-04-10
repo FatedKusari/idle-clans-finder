@@ -11,6 +11,7 @@ interface ClanSkillsProps {
   skills: {
     [skillName: string]: number;
   };
+  ranks?: Record<string, number>;
 }
 
 const normalizeSkillName = (name: string) => {
@@ -18,7 +19,7 @@ const normalizeSkillName = (name: string) => {
   return name.toLowerCase().replace(/\s+/g, '');
 };
 
-export default function ClanSkills({ skills }: ClanSkillsProps) {
+export default function ClanSkills({ skills, ranks = {} }: ClanSkillsProps) {
   const entries = Object.entries(skills);
   const totalXp = entries.reduce((acc, [, xp]) => acc + xp, 0);
 
@@ -49,8 +50,13 @@ export default function ClanSkills({ skills }: ClanSkillsProps) {
           return (
             <div
               key={name}
-              className="bg-black/50 p-4 rounded-xl border border-white/5 flex flex-col items-center hover:bg-black/10 hover:border-teal-500/30 hover:shadow-lg hover:shadow-teal-900/10 transition-all duration-300 group/card"
+              className="relative bg-black/50 p-4 rounded-xl border border-white/5 flex flex-col items-center hover:bg-black/10 hover:border-teal-500/30 hover:shadow-lg hover:shadow-teal-900/10 transition-all duration-300 group/card"
             >
+              {ranks[normalized] !== undefined && (
+                <div className="absolute top-2 right-2 z-10 text-[10px] text-gray-300 bg-black/40 px-2 py-[2px] rounded">
+                  #{ranks[normalized].toLocaleString()}
+                </div>
+              )}
               <div className="relative w-10 h-10 mb-2 transform group-hover/card:scale-110 transition-transform duration-300">
                 <Image
                   src={`/skills/${normalized}.png`}

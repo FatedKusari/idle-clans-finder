@@ -57,7 +57,8 @@ export const fetchLeaderboardProfile = async (
     gameMode: GameMode
 ): Promise<LeaderboardProfile | null> => {
     try {
-        const leaderboardName = `players:${gameMode}`;
+        const apiGameMode = gameMode.replace(/_/g, '');
+        const leaderboardName = `players:${apiGameMode}`;
         const response = await axios.get(
             `${API_BASE_URL}/Leaderboard/profile/${encodeURIComponent(leaderboardName)}/${encodeURIComponent(username)}`,
             { timeout: DEFAULT_TIMEOUT }
@@ -71,6 +72,25 @@ export const fetchLeaderboardProfile = async (
         }
         return null;
     }
+};
+
+export const fetchClanLeaderboardProfile = async (
+    clanName: string
+): Promise<LeaderboardProfile | null> => {
+    const gameModes = ['default', 'ironman', 'groupironman'];
+    for (const mode of gameModes) {
+        try {
+            const response = await axios.get(
+                `${API_BASE_URL}/Leaderboard/profile/${encodeURIComponent(`clans:${mode}`)}/${encodeURIComponent(clanName)}`,
+                { timeout: DEFAULT_TIMEOUT }
+            );
+            const fields = response.data?.fields;
+            if (fields && Object.keys(fields).length > 0) return response.data;
+        } catch (error) {
+            if (axios.isAxiosError(error)) continue;
+        }
+    }
+    return null;
 };
 
 export const fetchServerInfo = async (): Promise<number> => {
