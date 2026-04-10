@@ -126,6 +126,13 @@ export function useWikiContent(itemName: string) {
               `<p style="display:flex;justify-content:center;align-items:center;padding:1rem 0;">${imgBlock}</p>`
           );
 
+        // DEBUG: log first 2000 chars of processed HTML to console
+        // Remove this after diagnosing the image issue
+        console.log("=== WIKI RAW HTML (first 2000 chars) ===");
+        console.log(data.parse.text["*"].substring(0, 2000));
+        console.log("=== WIKI PROCESSED HTML (first 2000 chars) ===");
+        console.log(processedHtml.substring(0, 2000));
+
         setContent({
           html: processedHtml,
           title: data.parse.title,
