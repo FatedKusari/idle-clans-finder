@@ -96,20 +96,20 @@ export function WikiModal({ isOpen, onClose, itemName }: WikiModalProps) {
         font-size: 0.875rem;
       }
       
-      /* Main item image - make the <a class="image"> wrapper block so margin:auto works */
-      .wiki-content table:first-of-type th a.image,
-      .wiki-content table:first-of-type th p a.image {
+      /* Force every wrapper inside the image cell to be centred block, no floats */
+      .wiki-content table:first-of-type th * {
+        float: none !important;
         display: block;
+        margin-left: auto;
+        margin-right: auto;
         text-align: center;
       }
 
       /* Main item image styling */
-      .wiki-content table:first-of-type th p img,
-      .wiki-content table:first-of-type th .image img {
+      .wiki-content table:first-of-type th img {
         width: 128px !important;
         height: 128px !important;
         object-fit: contain;
-        vertical-align: middle;
         display: block;
         margin: 0 auto;
         filter: drop-shadow(0 0 10px rgba(0,0,0,0.5));
