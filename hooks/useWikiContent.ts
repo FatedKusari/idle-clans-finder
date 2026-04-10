@@ -4,6 +4,7 @@ import DOMPurify from "dompurify";
 interface WikiContent {
   html: string;
   title: string;
+  wikiPageName: string;
 }
 
 interface WikiError {
@@ -14,6 +15,7 @@ export function useWikiContent(itemName: string) {
   const [content, setContent] = useState<WikiContent | null>(null);
   const [error, setError] = useState<WikiError | null>(null);
   const [isLoading, setIsLoading] = useState(false);
+  const resolvedPageName = { current: "" };
 
   useEffect(() => {
     const fetchWikiContent = async () => {
@@ -36,6 +38,8 @@ export function useWikiContent(itemName: string) {
             )
             .join("_");
         }
+
+        resolvedPageName.current = formattedName;
 
         const response = await fetch(`/api/wiki?page=${formattedName}`);
 
@@ -112,6 +116,7 @@ export function useWikiContent(itemName: string) {
         setContent({
           html: processedHtml,
           title: data.parse.title,
+          wikiPageName: data.parse.title.replace(/ /g, "_"),
         });
       } catch (err) {
         console.error("Wiki content error:", err);
