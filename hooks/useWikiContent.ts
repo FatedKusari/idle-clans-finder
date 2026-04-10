@@ -101,25 +101,29 @@ export function useWikiContent(itemName: string) {
           .replace(/<li[^>]*class="toclevel[^"]*"[^>]*>[\s\S]*?<\/li>/g, "")
           .replace(/\[<a[^>]*>edit<\/a> \| <a[^>]*>edit source<\/a>\]/g, "")
           .replace(/>Combat</g, "><")
+          // Rewrite image URLs — handles both old relative paths (/images/thumb/...)
+          // and new absolute URLs (https://www.wiki.idleclans.com/images/thumb/...)
+          // The thumb URL format is: .../filename.png/NNNpx-filename.png
+          // We want just the base filename mapped to our local /gameimages/ folder.
           .replace(
-            /\/images\/thumb\/[^/]+\/[^/]+\/([^/]+)\.png\/[^\"]+/g,
+            /(?:https?:\/\/[^"]*)?\/images\/thumb\/[^/]+\/[^/]+\/([^/]+)\.png\/[^"]+/g,
             (match, filename) => {
               const localFilename = filename.toLowerCase().replace(/\s+/g, "_");
               return `/gameimages/${localFilename}.png`;
             }
           )
-          .replace(/\/index.php\/File:([^"]+)\.png/g, (match, filename) => {
+          .replace(/(?:https?:\/\/[^"]*)?\/index\.php\/File:([^"]+)\.png/g, (match, filename) => {
             const localFilename = filename.toLowerCase().replace(/\s+/g, "_");
             return `/gameimages/${localFilename}.png`;
           })
-          // Wrap the main item image (first <img> inside the first <th>) in a centring div.
-          // DOMPurify strips all <div> tags, so any float/alignment wrappers the wiki uses
-          // are removed — leaving the <img> as a bare inline element that sits left.
-          // We re-wrap it here after sanitisation so CSS can centre it reliably.
+          // After URL rewriting, wrap ANY <img> pointing to /gameimages/ that is NOT already
+          // inside a <table> in a centred container. The main item image on many pages sits
+          // outside the infobox table (just a bare <p><a><img></a></p> block), so CSS rules
+          // scoped to "table:first-of-type th" never apply to it.
           .replace(
-            /(<th[^>]*>)([\s\S]*?<img[^>]*gameimages[^>]*>)([\s\S]*?<\/th>)/,
-            (_match, open, inner, close) =>
-              `${open}<div style="display:flex;justify-content:center;align-items:center;padding:0.5rem 0;">${inner}</div>${close}`
+            /(<p[^>]*>[\s\S]*?)(<a[^>]*class="image"[^>]*>[\s\S]*?<img[^>]*\/gameimages\/[^>]*>[\s\S]*?<\/a>)([\s\S]*?<\/p>)/,
+            (_match, before, imgBlock, after) =>
+              `<p style="display:flex;justify-content:center;align-items:center;padding:1rem 0;">${imgBlock}</p>`
           );
 
         setContent({
