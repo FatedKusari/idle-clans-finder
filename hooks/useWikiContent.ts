@@ -116,22 +116,17 @@ export function useWikiContent(itemName: string) {
             const localFilename = filename.toLowerCase().replace(/\s+/g, "_");
             return `/gameimages/${localFilename}.png`;
           })
-          // After URL rewriting, wrap ANY <img> pointing to /gameimages/ that is NOT already
-          // inside a <table> in a centred container. The main item image on many pages sits
-          // outside the infobox table (just a bare <p><a><img></a></p> block), so CSS rules
-          // scoped to "table:first-of-type th" never apply to it.
+          // The wiki renders the item as: text<img ...>text<table>...
+          // The leading text (item name) and bare <img> sit outside any wrapper element.
+          // Strip the leading text+image preamble and replace with a centred image block.
           .replace(
-            /(<p[^>]*>[\s\S]*?)(<a[^>]*class="image"[^>]*>[\s\S]*?<img[^>]*\/gameimages\/[^>]*>[\s\S]*?<\/a>)([\s\S]*?<\/p>)/,
-            (_match, before, imgBlock, after) =>
-              `<p style="display:flex;justify-content:center;align-items:center;padding:1rem 0;">${imgBlock}</p>`
-          );
-
-        // DEBUG: log first 2000 chars of processed HTML to console
-        // Remove this after diagnosing the image issue
-        console.log("=== WIKI RAW HTML (first 2000 chars) ===");
-        console.log(data.parse.text["*"].substring(0, 2000));
-        console.log("=== WIKI PROCESSED HTML (first 2000 chars) ===");
-        console.log(processedHtml.substring(0, 2000));
+            /^([^<]*<img[^>]*class="mw-file-element"[^>]*>)/,
+            (_match, imgTag) =>
+              `<div style="display:flex;justify-content:center;padding:1.5rem 0;">${imgTag}</div>`
+          )
+          // Also hide the stray leading text node (item name before the image)
+          // by wrapping the whole preamble up to the first <table> or <p> in a hidden span
+          .replace(/^([^<]+)(<div style="display:flex)/, (_m, text, rest) => rest);
 
         setContent({
           html: processedHtml,
