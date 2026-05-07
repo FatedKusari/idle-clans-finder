@@ -54,7 +54,6 @@ export default function ClanPage() {
 
         if (!profile?.fields) return;
 
-        // Skill ranks
         const ranks: Record<string, number> = {};
 
         Object.entries(profile.fields).forEach(([key, value]: any) => {
@@ -90,6 +89,9 @@ export default function ClanPage() {
 
           OtherworldlyGolem:
             profile.fields?.otherworldly_golem?.score || 0,
+
+          BloodmoonMassacre:
+            profile.fields?.bloodmoon_massacre?.score || 0,
         };
 
         setClanPvmStats(pvmStats);
@@ -231,14 +233,6 @@ export default function ClanPage() {
                   </div>
                 </div>
 
-                {clanData.serializedUpgrades && (
-                  <ClanUpgradesGrid
-                    serializedUpgrades={
-                      clanData.serializedUpgrades
-                    }
-                  />
-                )}
-
                 <div className="space-y-8">
                   {clanData.skills && (
                     <ClanSkills
@@ -257,6 +251,14 @@ export default function ClanPage() {
                         stats={clanPvmStats}
                       />
                     </div>
+                  )}
+
+                  {clanData.serializedUpgrades && (
+                    <ClanUpgradesGrid
+                      serializedUpgrades={
+                        clanData.serializedUpgrades
+                      }
+                    />
                   )}
                 </div>
               </div>
