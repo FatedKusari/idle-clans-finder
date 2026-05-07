@@ -13,6 +13,7 @@ import UnifiedSearch from "@/components/search/UnifiedSearch";
 import { useClanQuery } from "@/hooks/queries/useClanQuery";
 import { useRecentSearches } from "@/hooks/useRecentSearches";
 import { fetchClanLeaderboardProfile } from "@/lib/api/apiService";
+import PvmStatsDisplay from "@/components/pvmstats/PvmStatsDisplay";
 
 export default function ClanPage() {
   const { clanName } = useParams<{ clanName: string }>();
@@ -33,23 +34,55 @@ export default function ClanPage() {
   const { data: clanData, isLoading, error } = useClanQuery(decodedClanName);
 
   const [skillRanks, setSkillRanks] = useState<Record<string, number>>({});
+  const [clanPvmStats, setClanPvmStats] = useState<Record<string, number>>({});
 
-  useEffect(() => {
-    if (!decodedClanName) return;
+useEffect(() => {
+  if (!decodedClanName) return;
 
-    const fetchRanks = async () => {
-      const profile = await fetchClanLeaderboardProfile(decodedClanName);
-      if (!profile?.fields) return;
+  const fetchProfileData = async () => {
+    const profile = await fetchClanLeaderboardProfile(decodedClanName);
 
-      const ranks: Record<string, number> = {};
-      Object.entries(profile.fields).forEach(([key, value]: any) => {
-        ranks[key.toLowerCase()] = value.rank;
-      });
-      setSkillRanks(ranks);
-    };
+    if (!profile?.fields) return;
 
-    fetchRanks();
-  }, [decodedClanName]);
+    // Skill ranks
+    const ranks: Record<string, number> = {};
+
+    Object.entries(profile.fields).forEach(([key, value]: any) => {
+      ranks[key.toLowerCase()] = value.rank;
+    });
+
+    setSkillRanks(ranks);
+
+    // PvM stats
+    const PVM_KEYS = [
+      "chimera",
+      "devil",
+      "griffin",
+      "hades",
+      "medusa",
+      "zeus",
+      "sobek",
+      "kronos",
+      "reckoning_of_the_gods",
+      "guardians_of_the_citadel",
+      "malignant_spider",
+      "skeleton_warrior",
+      "otherworldly_golem",
+      "bloodmoon_massacre",
+      "mesines",
+    ];
+
+    const pvmStats: Record<string, number> = {};
+
+    PVM_KEYS.forEach((key) => {
+      pvmStats[key] = profile.fields?.[key]?.score || 0;
+    });
+
+    setClanPvmStats(pvmStats);
+  };
+
+  fetchProfileData();
+}, [decodedClanName]);
 
   useEffect(() => {
     if (decodedClanName) setClanSearchQuery(decodedClanName);
@@ -156,7 +189,24 @@ export default function ClanPage() {
                   />
                 )}
 
-                {clanData.skills && <ClanSkills skills={clanData.skills} ranks={skillRanks} />}
+                <div className="space-y-8">
+  {clanData.skills && (
+    <ClanSkills
+      skills={clanData.skills}
+      ranks={skillRanks}
+    />
+  )}
+
+  {Object.keys(clanPvmStats).length > 0 && (
+    <div className="relative bg-white/5 p-6 md:p-8 rounded-2xl border-2 border-white/10 hover:border-teal-500/50 hover:shadow-teal-900/20 transition-all duration-300 group w-full shadow-2xl backdrop-blur-xl animate-fade-in">
+      <h2 className="text-3xl font-bold text-teal-400 mb-6 tracking-tight">
+        PvM Stats
+      </h2>
+
+      <PvmStatsDisplay stats={clanPvmStats} />
+    </div>
+  )}
+</div>
               </div>
             )}
           </>
