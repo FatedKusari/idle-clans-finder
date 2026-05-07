@@ -233,14 +233,6 @@ export default function ClanPage() {
                   </div>
                 </div>
 
-                <div className="space-y-8">
-                  {clanData.skills && (
-                    <ClanSkills
-                      skills={clanData.skills}
-                      ranks={skillRanks}
-                    />
-                  )}
-
                   {clanPvmStats && (
                     <div className="relative bg-white/5 p-6 md:p-8 rounded-2xl border-2 border-white/10 hover:border-teal-500/50 hover:shadow-teal-900/20 transition-all duration-300 group w-full shadow-2xl backdrop-blur-xl animate-fade-in">
                       <h2 className="text-3xl font-bold text-teal-400 mb-6 tracking-tight">
@@ -251,6 +243,14 @@ export default function ClanPage() {
                         stats={clanPvmStats}
                       />
                     </div>
+                  )}
+                
+                <div className="space-y-8">
+                  {clanData.skills && (
+                    <ClanSkills
+                      skills={clanData.skills}
+                      ranks={skillRanks}
+                    />
                   )}
 
                   {clanData.serializedUpgrades && (
